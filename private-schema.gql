@@ -1,0 +1,75 @@
+# relay pagination
+type PageInfo {
+    startCursor: String
+    endCursor: String
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+}
+
+type PaymentMethod implements Node @key(fields: "id") {
+    "Node ID"
+    id: ID!
+}
+
+type Plan implements Node @key(fields: "id") {
+    "Node ID"
+    id: ID!
+}
+
+type Subscription implements Node @key(fields: "id") {
+    "Node ID"
+    id: ID!
+}
+
+type Charge implements Node @key(fields: "id") {
+    "Node ID"
+    id: ID!
+
+    refunded: Boolean!
+}
+
+input SubscribeInput {
+    "Node ID"
+    plan: String!
+}
+
+
+# ###################################################################
+# Queries & Mutations
+# ###################################################################
+
+type Query {
+    plans: [Plan!]!
+    promoCodes: [String!]!
+}
+
+type Mutation {
+    createPaymentMethod: PaymentMethod!
+    updatePaymentMethod: PaymentMethod!
+    deletePaymentMethod: PaymentMethod!
+
+    "create AND update"
+    subscribe(input: SubscribeInput):  Subscription!
+    unsubscribe: Subscription!
+
+    validatePromoCode(input: String!): Boolean!
+
+    # checkout?
+}
+
+# ###################################################################
+# Remote Types
+# ###################################################################
+
+# This is a "stub" of the User entity (see below)
+extend type User @key(fields: "id") {
+    "Node ID"
+    id: ID! @external
+    paymentMethods: [PaymentMethod]
+    subscription: Subscription
+    charges: [Charge]
+}
+
+extend interface Node {
+    id: ID! @external
+}

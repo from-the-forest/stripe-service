@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const fs = require('fs');
 const path = require('path');
 
@@ -6,7 +8,7 @@ const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-serve
 
 const resolvers = require('./resolvers');
 const context = require('./context');
-const typeDefs = fs.readFileSync(path.join(__dirname, './schema.gql')).toString('utf-8');
+const typeDefs = fs.readFileSync(path.join(__dirname, './private-schema.gql')).toString('utf-8');
 
 const server = new ApolloServer({
   typeDefs,

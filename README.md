@@ -11,3 +11,7 @@
 
 - `npm install`
 - Launch via VSCode Debugger
+
+## Documentation
+
+https://stripe.com/docs/api

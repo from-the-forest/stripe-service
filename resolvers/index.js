@@ -1,6 +1,9 @@
 module.exports = {
+    User: {
+        subscription: require('./User/subscription'),
+    },
     Query: {
-        whoami: require('./Query/whoami'),
-        me: require('./Query/whoami'),
+        plans: require('./Query/plans'),
+        promoCodes: require('./Query/promoCodes'),
     },
 };
