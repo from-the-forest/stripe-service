@@ -1,8 +1,5 @@
 # Stripe Service
 
-- public graph
-- private graph
-
 ## Requirements
 
 - nodejs
