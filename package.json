@@ -1,0 +1,28 @@
+{
+  "name": "stripe-service",
+  "version": "1.0.0",
+  "description": "from the forest stripe service",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/from-the-forest/stripe-service.git"
+  },
+  "author": "Joe Cuffney <jcuffney@fromtheforest.io>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/from-the-forest/stripe-service/issues"
+  },
+  "homepage": "https://github.com/from-the-forest/stripe-service#readme",
+  "dependencies": {
+    "@apollo/federation": "^0.33.0",
+    "apollo-server": "^3.3.0",
+    "graphql": "^15.6.0",
+    "stripe": "^8.178.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
