@@ -5,9 +5,9 @@ module.exports = async (_, { input: { first = 10, after } = {} } = {}, { stripe 
     if (first > 100) throw Error('first must be less than 100');
 
     // we can't pass `starting_after: null` as it causes an error - so we conditionally add it
-    const params = after ? { limit: first, starting_after: after } : { limit: first };
+    const params = after ? { limit: first, starting_after: after, active: true } : { limit: first, active: true };
 
-    const { hasNextPage, edges } = await stripe.promotionCodes.list(params)
+    const { hasNextPage, edges } = await stripe.products.list(params)
         .then(response => ({
             hasNextPage: R.pathOr(false, ['has_more'], response),
             edges: R.map((node) => ({

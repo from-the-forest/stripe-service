@@ -6,32 +6,61 @@ type PageInfo {
     hasPreviousPage: Boolean!
 }
 
-# type PaymentMethod {
-#     "Node ID"
-#     id: ID!
-# }
+# ###################################################################
+# Prices - Associated with a product
+# ###################################################################
 
-# type Plan {
-#     "Node ID"
-#     id: ID!
-# }
 
-# type Subscription {
-#     "Node ID"
-#     id: ID!
-# }
+input PricesInput {
+    first: Int = 10
+    after: String
+}
 
-# type Charge {
-#     "Node ID"
-#     id: ID!
+type Price {
+    id: ID!
+    currency: String!
+    type: String!
+    amount: Int!,
+    formattedAmount: String!,
+}
 
-#     refunded: Boolean!
-# }
+type PriceEdge {
+    cursor: String!
+    node: Price!
+}
 
-# input SubscribeInput {
-#     "Node ID"
-#     plan: String!
-# }
+type PricesConnection {
+    pageInfo: PageInfo!
+    edges: [PriceEdge!]!
+}
+
+# ###################################################################
+# Products - What you sell; both physical and digial
+# ###################################################################
+
+input SearchProductsInput {
+    first: Int = 10
+    after: String
+}
+
+type Product {
+    id: String!
+    name: String!
+    description: String!
+    images: [String!]!
+    shippable: Boolean
+    prices(input: PricesInput): PricesConnection!
+}
+
+type SearchProductsEdge {
+    cursor: String!
+    node: Product!
+}
+
+type SerachProductsConnection {
+    pageInfo: PageInfo!
+    edges: [SearchProductsEdge!]!
+}
 
 # ###################################################################
 # Promotion Codes 
@@ -62,7 +91,10 @@ type SearchPromotionCodesConnection {
 # ###################################################################
 
 type Query {
-    # plans: [Plan!]!
+    "Stripe Products (used for physical products and subscriptions)"
+    searchProducts(input: SearchProductsInput): SerachProductsConnection!
+
+    "Stripe Promotion Codes https://dashboard.stripe.com/test/coupons"
     searchPromotionCodes(input: SearchPromotionCodesInput): SearchPromotionCodesConnection!
 }
 
