@@ -4,7 +4,9 @@
   "description": "from the forest stripe service",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --inspect index.js"
+    "dev": "nodemon --inspect index.js",
+    "lint": "eslint index.js context/**/*.js resolvers/**/*.js",
+    "lint:fix": "eslint --fix index.js context/**/*.js resolvers/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,11 @@
     "stripe": "^8.178.0"
   },
   "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
     "nodemon": "^2.0.13"
   }
 }

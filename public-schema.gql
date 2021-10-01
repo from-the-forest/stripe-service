@@ -10,6 +10,7 @@ type PageInfo {
 # Prices - Associated with a product
 # ###################################################################
 
+
 input PricesInput {
     first: Int = 10
     after: String
@@ -63,68 +64,10 @@ type SerachProductsConnection {
 }
 
 # ###################################################################
-# Promotion Codes 
-# ###################################################################
-
-input SearchPromotionCodesInput {
-    first: Int = 10
-    after: String
-}
-
-type PromotionCode {
-    id: String!
-    code: String!
-}
-
-type PromotionCodeEdge {
-    cursor: String!
-    node: PromotionCode!
-}
-
-type SearchPromotionCodesConnection {
-    pageInfo: PageInfo!
-    edges: [PromotionCodeEdge!]!
-}
-
-# ###################################################################
 # Queries & Mutations
 # ###################################################################
 
 type Query {
-    # NOTE: private graph is a superset of the public graph. so this is duplicated
     "Stripe Products (used for physical products and subscriptions)"
     searchProducts(input: SearchProductsInput): SerachProductsConnection!
-
-    "Stripe Promotion Codes [Stripe Coupons](https://dashboard.stripe.com/test/coupons) [Docs](https://stripe.com/docs/api/promotion_codes)"
-    searchPromotionCodes(input: SearchPromotionCodesInput): SearchPromotionCodesConnection!
 }
-
-# type Mutation {
-#     createPaymentMethod: PaymentMethod!
-#     updatePaymentMethod: PaymentMethod!
-#     deletePaymentMethod: PaymentMethod!
-
-#     "create AND update"
-#     subscribe(input: SubscribeInput):  Subscription!
-#     unsubscribe: Subscription!
-
-
-#     # checkout?
-# }
-
-# ###################################################################
-# Remote Types
-# ###################################################################
-
-# This is a "stub" of the User entity (see below)
-# extend type User @key(fields: "id") {
-#     "Node ID"
-#     id: ID! @external
-#     paymentMethods: [PaymentMethod]
-#     subscription: Subscription
-#     charges: [Charge]
-# }
-
-# extend interface Node {
-#     id: ID! @external
-# }
