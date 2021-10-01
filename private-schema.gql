@@ -6,70 +6,93 @@ type PageInfo {
     hasPreviousPage: Boolean!
 }
 
-type PaymentMethod implements Node @key(fields: "id") {
-    "Node ID"
-    id: ID!
+# type PaymentMethod {
+#     "Node ID"
+#     id: ID!
+# }
+
+# type Plan {
+#     "Node ID"
+#     id: ID!
+# }
+
+# type Subscription {
+#     "Node ID"
+#     id: ID!
+# }
+
+# type Charge {
+#     "Node ID"
+#     id: ID!
+
+#     refunded: Boolean!
+# }
+
+# input SubscribeInput {
+#     "Node ID"
+#     plan: String!
+# }
+
+# ###################################################################
+# Promotion Codes 
+# ###################################################################
+
+input SearchPromotionCodesInput {
+    first: Int = 10
+    after: String
 }
 
-type Plan implements Node @key(fields: "id") {
-    "Node ID"
-    id: ID!
+type PromotionCode {
+    id: String!
+    code: String!
 }
 
-type Subscription implements Node @key(fields: "id") {
-    "Node ID"
-    id: ID!
+type PromotionCodeEdge {
+    cursor: String!
+    node: PromotionCode!
 }
 
-type Charge implements Node @key(fields: "id") {
-    "Node ID"
-    id: ID!
-
-    refunded: Boolean!
+type SearchPromotionCodesConnection {
+    pageInfo: PageInfo!
+    edges: [PromotionCodeEdge!]!
 }
-
-input SubscribeInput {
-    "Node ID"
-    plan: String!
-}
-
 
 # ###################################################################
 # Queries & Mutations
 # ###################################################################
 
 type Query {
-    plans: [Plan!]!
-    promoCodes: [String!]!
+    # plans: [Plan!]!
+    searchPromotionCodes(input: SearchPromotionCodesInput): SearchPromotionCodesConnection!
 }
 
-type Mutation {
-    createPaymentMethod: PaymentMethod!
-    updatePaymentMethod: PaymentMethod!
-    deletePaymentMethod: PaymentMethod!
+# type Mutation {
+#     createPaymentMethod: PaymentMethod!
+#     updatePaymentMethod: PaymentMethod!
+#     deletePaymentMethod: PaymentMethod!
 
-    "create AND update"
-    subscribe(input: SubscribeInput):  Subscription!
-    unsubscribe: Subscription!
+#     "create AND update"
+#     subscribe(input: SubscribeInput):  Subscription!
+#     unsubscribe: Subscription!
 
-    validatePromoCode(input: String!): Boolean!
+#     validatePromoCode(input: String!): Boolean!
 
-    # checkout?
-}
+#     # checkout?
+# }
 
 # ###################################################################
 # Remote Types
 # ###################################################################
 
 # This is a "stub" of the User entity (see below)
-extend type User @key(fields: "id") {
-    "Node ID"
-    id: ID! @external
-    paymentMethods: [PaymentMethod]
-    subscription: Subscription
-    charges: [Charge]
-}
+# extend type User @key(fields: "id") {
+#     "Node ID"
+#     id: ID! @external
+#     paymentMethods: [PaymentMethod]
+#     subscription: Subscription
+#     charges: [Charge]
+# }
 
-extend interface Node {
-    id: ID! @external
-}
+# extend interface Node {
+#     id: ID! @external
+# }

@@ -3,16 +3,19 @@ require('dotenv').config()
 const fs = require('fs');
 const path = require('path');
 
-const { ApolloServer } = require('apollo-server');
+const { ApolloServer, gql } = require('apollo-server');
 const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-server-core');
 
 const resolvers = require('./resolvers');
 const context = require('./context');
-const typeDefs = fs.readFileSync(path.join(__dirname, './private-schema.gql')).toString('utf-8');
+const { buildSubgraphSchema } = require('@apollo/federation');
+const schema = fs.readFileSync(path.join(__dirname, './private-schema.gql')).toString('utf-8');
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema: buildSubgraphSchema([{
+    typeDefs: gql(schema),
+    resolvers,
+  }]),
   context,
   plugins: [
     ApolloServerPluginLandingPageGraphQLPlayground(),

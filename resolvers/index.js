@@ -4,6 +4,6 @@ module.exports = {
     },
     Query: {
         plans: require('./Query/plans'),
-        promoCodes: require('./Query/promoCodes'),
+        searchPromotionCodes: require('./Query/searchPromotionCodes'),
     },
 };
