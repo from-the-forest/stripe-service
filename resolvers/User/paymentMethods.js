@@ -8,10 +8,10 @@ module.exports = async (_, { input: { first = 10, after } = {} } = {}, { stripe,
 
   // we can't pass `starting_after: null` as it causes an error - so we conditionally add it
   const params = after
-    ? { customer: customerId, limit: first, starting_after: after }
-    : { customer: customerId, limit: first }
+    ? { customer: customerId, limit: first, starting_after: after, type: 'card' }
+    : { customer: customerId, limit: first, type: 'card' }
 
-  const { hasNextPage, edges } = await stripe.subscriptions.list(params)
+  const { hasNextPage, edges } = await stripe.paymentMethods.list(params)
     .then(response => ({
       hasNextPage: R.pathOr(false, ['has_more'], response),
       edges: R.map((node) => ({

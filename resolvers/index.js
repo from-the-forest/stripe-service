@@ -1,3 +1,4 @@
+const paymentMethods = require('./User/paymentMethods');
 const subscriptions = require('./User/subscriptions');
 
 module.exports = {
@@ -8,7 +9,8 @@ module.exports = {
         // TODO: fix this
         __resolveReference: () => ({ id: '1' }),
         charges: require('./User/charges'),
-        subscriptions: require('./User/subscriptions')
+        subscriptions: require('./User/subscriptions'),
+        paymentMethods: require('./User/paymentMethods')
     },
     Query: {
         searchProducts: require('./Query/searchProducts'),
