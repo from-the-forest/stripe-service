@@ -5,6 +5,28 @@ type PageInfo {
     hasNextPage: Boolean!
     hasPreviousPage: Boolean!
 }
+# ###################################################################
+# Subscriptions 
+# ###################################################################
+
+input SubscriptionsInput {
+    first: Int = 10
+    after: String
+}
+
+type Subscription {
+    id: String!
+}
+
+type SubscriptionEdge {
+    cursor: String!
+    node: Charge!
+}
+
+type SubscriptionsConnection {
+    pageInfo: PageInfo!
+    edges: [SubscriptionEdge!]!
+}
 
 # ###################################################################
 # Charges 
@@ -143,8 +165,8 @@ type Query {
 extend type User @key(fields: "id") {
     id: ID! @external
     charges(input: ChargesInput): ChargesConnection!
+    subscriptions(input: SubscriptionsInput): SubscriptionsConnection!
     # paymentMethods: [PaymentMethod]
-    # subscription: Subscription
 }
 
 extend interface Node {
