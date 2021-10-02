@@ -1,6 +1,3 @@
-const paymentMethods = require('./User/paymentMethods');
-const subscriptions = require('./User/subscriptions');
-
 module.exports = {
     Product: {
         prices: require('./Product/prices'),
@@ -16,4 +13,7 @@ module.exports = {
         searchProducts: require('./Query/searchProducts'),
         searchPromotionCodes: require('./Query/searchPromotionCodes'),
     },
+    Mutation: {
+        deletePaymentMethod: require('./Mutation/deletePaymentMethod')
+    }
 };

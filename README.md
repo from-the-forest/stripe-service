@@ -90,6 +90,20 @@ the private graph is a superset of the public graph. it includes all the public 
   _entities(representations: [{ __typename: "User", id: "1" }]) {
     ... on User {
       id
+      subscriptions {
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          cursor
+          node {
+            id
+          }
+        }
+      }
       charges(input: { first: 5 }) {
         pageInfo {
           startCursor
@@ -104,7 +118,29 @@ the private graph is a superset of the public graph. it includes all the public 
           }
         }
       }
+      paymentMethods(input: { first: 5 }) {
+        pageInfo {
+          startCursor
+          endCursor
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          cursor
+          node {
+            id
+          }
+        }
+      }
     }
+  }
+}
+```
+
+```gql
+mutation deletePaymentMethod {
+  deletePaymentMethod(input: { paymentMethodId: "card_1JgBBPGQI8FZmHKGeP11U7ZL" }) {
+    id
   }
 }
 ```

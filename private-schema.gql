@@ -156,6 +156,14 @@ type SearchPromotionCodesConnection {
 }
 
 # ###################################################################
+# Mutation.deletePaymentMethod
+# ###################################################################
+
+input DeletePaymentMethodInput {
+    paymentMethodId: String! 
+}
+
+# ###################################################################
 # Queries & Mutations
 # ###################################################################
 
@@ -168,18 +176,18 @@ type Query {
     searchPromotionCodes(input: SearchPromotionCodesInput): SearchPromotionCodesConnection!
 }
 
-# type Mutation {
-#     createPaymentMethod: PaymentMethod!
-#     updatePaymentMethod: PaymentMethod!
-#     deletePaymentMethod: PaymentMethod!
+type Mutation {
+    # it seems like you can create payment methods right from the client?
+    # https://stripe.com/docs/js/payment_methods/create_payment_method
+    # createPaymentMethod(input: CreatePaymentMethodInput!): PaymentMethod!
+    deletePaymentMethod(input: DeletePaymentMethodInput!): PaymentMethod!
 
-#     "create AND update"
-#     subscribe(input: SubscribeInput):  Subscription!
-#     unsubscribe: Subscription!
+    # create AND update
+    # subscribe(input: SubscribeInput):  Subscription!
+    # unsubscribe: Subscription!
 
-
-#     # checkout?
-# }
+    # checkout?
+}
 
 # ###################################################################
 # Remote Types
@@ -193,6 +201,6 @@ extend type User @key(fields: "id") {
     paymentMethods(input: PaymentMethodsInput): PaymentMethodsConnection!
 }
 
-extend interface Node {
-    id: ID! @external
-}
+# extend interface Node {
+#     id: ID! @external
+# }
