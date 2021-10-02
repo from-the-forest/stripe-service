@@ -138,8 +138,24 @@ the private graph is a superset of the public graph. it includes all the public 
 ```
 
 ```gql
-mutation deletePaymentMethod {
+mutation DeletePaymentMethod {
   deletePaymentMethod(input: { paymentMethodId: "card_1JgBBPGQI8FZmHKGeP11U7ZL" }) {
+    id
+  }
+}
+```
+
+```gql
+mutation Subscribe {
+  subscribe(input: { priceIds: ["price_1Jfui2GQI8FZmHKG3Ul0JqOT"] }) {
+    id
+  }
+}
+```
+
+```gql
+mutation Unsubscribe {
+  unsubscribe(input: { subscriptionId: "sub_1JgBolGQI8FZmHKGXGx1AyIq" }) {
     id
   }
 }

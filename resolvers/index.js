@@ -14,6 +14,8 @@ module.exports = {
         searchPromotionCodes: require('./Query/searchPromotionCodes'),
     },
     Mutation: {
-        deletePaymentMethod: require('./Mutation/deletePaymentMethod')
+        deletePaymentMethod: require('./Mutation/deletePaymentMethod'),
+        subscribe: require('./Mutation/subscribe'),
+        unsubscribe: require('./Mutation/unsubscribe')
     }
 };

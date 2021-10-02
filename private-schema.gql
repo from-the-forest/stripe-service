@@ -164,6 +164,22 @@ input DeletePaymentMethodInput {
 }
 
 # ###################################################################
+# Mutation.subscribe
+# ###################################################################
+
+input SubscribeInput {
+    priceIds: [String!]! 
+}
+
+# ###################################################################
+# Mutation.unsubscribe
+# ###################################################################
+
+input UnsubscribeInput {
+    subscriptionId: String! 
+}
+
+# ###################################################################
 # Queries & Mutations
 # ###################################################################
 
@@ -182,9 +198,9 @@ type Mutation {
     # createPaymentMethod(input: CreatePaymentMethodInput!): PaymentMethod!
     deletePaymentMethod(input: DeletePaymentMethodInput!): PaymentMethod!
 
-    # create AND update
-    # subscribe(input: SubscribeInput):  Subscription!
-    # unsubscribe: Subscription!
+    # "subscript" will handle create AND update
+    subscribe(input: SubscribeInput):  Subscription!
+    unsubscribe(input: UnsubscribeInput): Subscription!
 
     # checkout?
 }
