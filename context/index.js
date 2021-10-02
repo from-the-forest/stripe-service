@@ -15,6 +15,10 @@ module.exports = () => {
     stripe: stripe(STRIPE_API_KEY),
     // TODO: get the user from upstream (authorizer)
     // null if this is a public request
-    user: null
+    // user: null
+    user: {
+      email: 'jcuffney@fromtheforest.io',
+      customerId: 'cus_KKq7eOIdYTCQzY'
+    }
   }
 }

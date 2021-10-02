@@ -7,6 +7,29 @@ type PageInfo {
 }
 
 # ###################################################################
+# Charges 
+# ###################################################################
+
+input ChargesInput {
+    first: Int = 10
+    after: String
+}
+
+type Charge {
+    id: String!
+}
+
+type ChargeEdge {
+    cursor: String!
+    node: Charge!
+}
+
+type ChargesConnection {
+    pageInfo: PageInfo!
+    edges: [ChargeEdge!]!
+}
+
+# ###################################################################
 # Prices - Associated with a product
 # ###################################################################
 
@@ -116,15 +139,14 @@ type Query {
 # Remote Types
 # ###################################################################
 
-# This is a "stub" of the User entity (see below)
-# extend type User @key(fields: "id") {
-#     "Node ID"
-#     id: ID! @external
-#     paymentMethods: [PaymentMethod]
-#     subscription: Subscription
-#     charges: [Charge]
-# }
+# This is a "stub" of the User entity so this service has a complete graph
+extend type User @key(fields: "id") {
+    id: ID! @external
+    charges(input: ChargesInput): ChargesConnection!
+    # paymentMethods: [PaymentMethod]
+    # subscription: Subscription
+}
 
-# extend interface Node {
-#     id: ID! @external
-# }
+extend interface Node {
+    id: ID! @external
+}
