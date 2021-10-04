@@ -160,3 +160,9 @@ mutation Unsubscribe {
   }
 }
 ```
+
+```gql
+{
+  createCheckoutSession(input: { mode: "subscription", lineItems: ["price_1Jfui2GQI8FZmHKG3Ul0JqOT"] })
+}
+```
