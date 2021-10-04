@@ -37,7 +37,7 @@ jobs:
           command: |
             APOLLO_GRAPH_ID=ftf-main-private \
             APOLLO_GRAPH_VARIANT=ftf-main-private \
-            npx rover subgraph publish $APOLLO_GRAPH_ID@$APOLLO_GRAPH_VERSION \
+            npx rover subgraph publish "$APOLLO_GRAPH_ID@$APOLLO_GRAPH_VERSION" \
               --name stripe \
               --schema ./private-schema.gql
 
