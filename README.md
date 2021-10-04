@@ -17,6 +17,10 @@
 
 https://stripe.com/docs/api
 
+## Diagram
+
+<div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://lucid.app/documents/embeddedchart/2559a05c-b1e2-4cc9-89e6-e3a9a3dfb2f5" id="dDufFwOIK_Ik"></iframe></div>
+
 ## Authorization
 
 There are 2 graphs; private and public.
