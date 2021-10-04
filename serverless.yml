@@ -12,6 +12,14 @@ custom:
     RESOURCE_NAMESPACE: '${self:app}-${opt:stage}-${self:service}'
     SSM_NAMESPACE: '/${self:app}/${opt:stage}/${self:service}'
 
+    # lambda
+    FUNCTION_NAME: ''
+
+    # api gateway
+    STAGE: v1
+    REST_API_ID: '${ssm:/${self:app}/${opt:stage}/api/gateway/id}'
+    PUBLIC_RESOURCE_ID: '${ssm:/${self:app}/${opt:stage}/api/public/resource/id}'
+
     # node
     NODE_ENV: '${ssm:/${self:app}/${opt:stage}/infra/node-env}'
     NODE_VERSION: 'nodejs14.x'
@@ -30,6 +38,11 @@ provider:
   runtime: '${self:custom.vars.NODE_VERSION}'
   timeout: 6
   stackName: '${self:custom.vars.RESOURCE_NAMESPACE}'
+
+  apiGateway:
+    restApiId: '${self:custom.vars.REST_API_ID}'
+    restApiRootResourceId:
+      Ref: StripeWebhooksResource
 
   environment:
     NODE_ENV: '${self:custom.vars.NODE_ENV}' 
@@ -50,7 +63,21 @@ functions:
       SECURITY: public
 
   webhooks:
-    name: '${self:custom.vars.RESOURCE_NAMESPACE}-webhooks'
+    name: '${self:custom.vars.FUNCTION_NAME}-webhooks'
     handler: webhooks/index.handler
     environment:
       STRIPE_SIGNING_SECRET: '${self:custom.vars.STRIPE_SIGNING_SECRET}'
+    events:
+    - http:
+        path: webhook
+        method: post
+
+resources:
+  Resources:
+
+    StripeWebhooksResource:
+      Type: AWS::ApiGateway::Resource
+      Properties:
+        RestApiId: '${self:custom.vars.REST_API_ID}'
+        ParentId: '${self:custom.vars.PUBLIC_RESOURCE_ID}'
+        PathPart: stripe 
