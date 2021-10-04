@@ -38,13 +38,14 @@ input SubscriptionsInput {
     after: String
 }
 
-type Subscription {
+# NOTE: this is `StripeSubscription` due to clash with `Subscription`
+type StripeSubscription {
     id: String!
 }
 
 type SubscriptionEdge {
     cursor: String!
-    node: Subscription!
+    node: StripeSubscription!
 }
 
 type SubscriptionsConnection {
@@ -215,8 +216,8 @@ type Mutation {
     deletePaymentMethod(input: DeletePaymentMethodInput!): PaymentMethod!
 
     # "subscript" will handle create AND update
-    subscribe(input: SubscribeInput):  Subscription!
-    unsubscribe(input: UnsubscribeInput): Subscription!
+    subscribe(input: SubscribeInput):  StripeSubscription!
+    unsubscribe(input: UnsubscribeInput): StripeSubscription!
 }
 
 # ###################################################################

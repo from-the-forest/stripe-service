@@ -27,13 +27,14 @@ jobs:
       - node/install-packages
       - run: npm run test:cover
   
-  # publish-subgraph:
-  #   executor: node/default
-  #   steps:
-  #     - checkout
-  #     - node/install-packages
-  #     - run: npm run apollo:publish:private
-  #     - run: npm run apollo:publish:
+  publish-subgraph:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run apollo:publish:private
+      - run: npm run apollo:publish
+      - run: APOLLO_GRAPH_ID=ftf-main-private npx rover subgraph publish $APOLLO_GRAPH_ID@$APOLLO_GRAPH_VERSION
 
   deploy: 
     executor: node/default
@@ -41,19 +42,6 @@ jobs:
       - checkout
       - node/install-packages
       - run: npx serverless deploy --stage ${CIRCLE_BRANCH}
-
-  # api-deploy:
-  #   executor: aws-cli/default
-  #   steps:
-  #     - checkout
-  #     - jq/install
-  #     - aws-cli/setup
-  #     - run: 
-  #         command: |
-  #           API_ID=$(aws ssm get-parameter --name /onset/${CIRCLE_BRANCH}/api/gateway/id | jq -r '.Parameter.Value')
-  #           API_STAGE_NAME=v1
-  #           aws apigateway create-deployment --rest-api-id $API_ID --stage-name $API_STAGE_NAME
-  #           aws apigateway flush-stage-cache --rest-api-id $API_ID --stage-name $API_STAGE_NAME
 
   # integration:
   #   executor: node/default
@@ -82,14 +70,15 @@ workflows:
             branches:
               only:
                 - main
-      # - api-deploy:
-      #     context: FTF
-      #     requires:
-      #       - deploy
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
+      - publish-subgraph:
+          context: FTF 
+          requires:
+            - lint
+            - test
+          filters:
+            branches:
+              only:
+                - main
       # - integration:
       #     context: FTF
       #     requires:

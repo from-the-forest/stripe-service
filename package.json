@@ -12,9 +12,7 @@
     "lint:fix": "eslint --fix index.js context/**/*.js resolvers/**/*.js",
     "docker:build": "docker build -t ftf/stripe-service .",
     "docker:run": "docker run -p 4000:4000 ftf/stripe-service",
-    "serve": "node index.js",
-    "apollo:publish:private": "",
-    "apollo:publish:public": ""
+    "serve": "node index.js"
   },
   "repository": {
     "type": "git",
