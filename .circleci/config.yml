@@ -31,10 +31,13 @@ jobs:
     executor: node/default
     steps:
       - checkout
+      - aws-cli/setup
+      - jq/install
       - node/install-packages
       - run:
           name: Publish Subgraph Schema
           command: |
+            APOLLO_KEY=$(aws ssm get-parameter --name /ftf/${CIRCLE_BRANCH}/apollo/key | jq -r '.Parameter.Value')
             APOLLO_GRAPH_ID=ftf-main-private \
             APOLLO_GRAPH_VARIANT=current \
             npx rover subgraph publish "$APOLLO_GRAPH_ID@$APOLLO_GRAPH_VARIANT" \
