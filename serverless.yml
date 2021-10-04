@@ -13,19 +13,20 @@ custom:
     SSM_NAMESPACE: '/${self:app}/${opt:stage}/${self:service}'
 
     # lambda
-    FUNCTION_NAME: '${self:custom.vars.RESOURCE_NAMESPACE}'
+    FUNCTION_NAME: ''
 
     # api gateway
-    STAGE: v1
-    REST_API_ID: '${ssm:/${self:app}/${opt:stage}/api/gateway/id}'
-    PUBLIC_RESOURCE_ID: '${ssm:/${self:app}/${opt:stage}/api/public/resource/id}'
+    # STAGE: v1
+    # REST_API_ID: '${ssm:/${self:app}/${opt:stage}/api/gateway/id}'
+    # PUBLIC_RESOURCE_ID: '${ssm:/${self:app}/${opt:stage}/api/public/resource/id}'
 
     # node
     NODE_ENV: '${ssm:/${self:app}/${opt:stage}/infra/node-env}'
     NODE_VERSION: 'nodejs14.x'
 
     # stripe
-    STRIPE_SECRET_KEY: '${ssm:/${self:app}/${opt:stage}/stripe/secret-key}'
+    STRIPE_API_KEY: '${ssm:/${self:app}/${opt:stage}/stripe/api-key}'
+    STRIPE_SIGNING_SECRET: '${ssm:/${self:app}/${opt:stage}/stripe/signing-secret}'
 
   prune:
     automatic: true
@@ -45,14 +46,21 @@ provider:
 
   environment:
     NODE_ENV: '${self:custom.vars.NODE_ENV}' 
-    
-    STRIPE_SECRET_KEY: '${self:custom.vars.STRIPE_SECRET_KEY}'
+    STRIPE_API_KEY: '${self:custom.vars.STRIPE_API_KEY}'
     
 functions:
 
-  graphql:
-    name: '${self:custom.vars.FUNCTION_NAME}'
+  private:
+    name: '${self:custom.vars.RESOURCE_NAMESPACE}-private-subgraph'
     handler: lambda.handler
+    enviornment:
+      SECURITY: private
+
+  public:
+    name: '${self:custom.vars.RESOURCE_NAMESPACE}-public-subgraph'
+    handler: lambda.handler
+    enviornment:
+      SECURITY: public
 
   # webhooks:
   #   name: '${self:custom.vars.FUNCTION_NAME}'
