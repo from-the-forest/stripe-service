@@ -1,5 +1,7 @@
 # Stripe Service
 
+> Apollo Federation Subgraph for stripe operations
+
 ## Requirements
 
 - nodejs
