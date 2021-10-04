@@ -1,0 +1,92 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1.0
+  aws-cli: circleci/aws-cli@1.3.0
+  jq: circleci/jq@2.0.2
+
+jobs:
+
+  install:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+
+  lint:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run lint
+
+  test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run test:cover
+
+  # deploy: 
+  #   executor: node/default
+  #   steps:
+  #     - checkout
+  #     - node/install-packages
+  #     - run: npx serverless deploy --stage ${CIRCLE_BRANCH}
+
+  # api-deploy:
+  #   executor: aws-cli/default
+  #   steps:
+  #     - checkout
+  #     - jq/install
+  #     - aws-cli/setup
+  #     - run: 
+  #         command: |
+  #           API_ID=$(aws ssm get-parameter --name /onset/${CIRCLE_BRANCH}/api/gateway/id | jq -r '.Parameter.Value')
+  #           API_STAGE_NAME=v1
+  #           aws apigateway create-deployment --rest-api-id $API_ID --stage-name $API_STAGE_NAME
+  #           aws apigateway flush-stage-cache --rest-api-id $API_ID --stage-name $API_STAGE_NAME
+
+  # integration:
+  #   executor: node/default
+  #   steps:
+  #     - checkout
+  #     - node/install-packages
+  #     - run: npm run integration
+
+workflows:
+  version: 2
+  primary:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+      # - deploy:
+      #     context: onset 
+      #     requires:
+      #       - lint
+      #       - test
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      # - api-deploy:
+      #     context: onset
+      #     requires:
+      #       - deploy
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      # - integration:
+      #     context: onset
+      #     requires:
+      #       - api-deploy 
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
