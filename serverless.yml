@@ -12,9 +12,6 @@ custom:
     RESOURCE_NAMESPACE: '${self:app}-${opt:stage}-${self:service}'
     SSM_NAMESPACE: '/${self:app}/${opt:stage}/${self:service}'
 
-    # lambda
-    FUNCTION_NAME: ''
-
     # api gateway
     STAGE: v1
     REST_API_ID: '${ssm:/${self:app}/${opt:stage}/api/gateway/id}'
