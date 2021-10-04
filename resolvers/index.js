@@ -12,6 +12,7 @@ module.exports = {
     Query: {
         searchProducts: require('./Query/searchProducts'),
         searchPromotionCodes: require('./Query/searchPromotionCodes'),
+        createCheckoutSession: require('./Query/createCheckoutSession')
     },
     Mutation: {
         deletePaymentMethod: require('./Mutation/deletePaymentMethod'),

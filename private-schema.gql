@@ -180,6 +180,20 @@ input UnsubscribeInput {
 }
 
 # ###################################################################
+# Query.createCheckoutSession
+# ###################################################################
+
+# NOTE: this is for stripe checkout
+input CreateCheckoutSessionInput {
+    # QUESTION: can these be combined to cover subscriptions AND one time payments?
+    # TODO: refactor if so
+    mode: String!
+    lineItems: [String!]!
+    successUrl: String
+    cancelUrl: String
+}
+
+# ###################################################################
 # Queries & Mutations
 # ###################################################################
 
@@ -190,19 +204,19 @@ type Query {
 
     "Stripe Promotion Codes [Stripe Coupons](https://dashboard.stripe.com/test/coupons) [Docs](https://stripe.com/docs/api/promotion_codes)"
     searchPromotionCodes(input: SearchPromotionCodesInput): SearchPromotionCodesConnection!
+
+    "Creates a checkout session to be used"
+    createCheckoutSession(input: CreateCheckoutSessionInput!): String!
 }
 
 type Mutation {
-    # it seems like you can create payment methods right from the client?
+    # NOTE: it seems like you can create payment methods right from clients
     # https://stripe.com/docs/js/payment_methods/create_payment_method
-    # createPaymentMethod(input: CreatePaymentMethodInput!): PaymentMethod!
     deletePaymentMethod(input: DeletePaymentMethodInput!): PaymentMethod!
 
     # "subscript" will handle create AND update
     subscribe(input: SubscribeInput):  Subscription!
     unsubscribe(input: UnsubscribeInput): Subscription!
-
-    # checkout?
 }
 
 # ###################################################################
