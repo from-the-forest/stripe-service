@@ -3,7 +3,7 @@ const getContext = require('../context');
 
 const { STRIPE_SIGNING_SECRET } = process.env;
 
-module.exports = async (event) => {
+exports.handler = async (event) => {
   if (!STRIPE_SIGNING_SECRET) throw Error('missing environment variables');
 
   const { stripe } = getContext();
