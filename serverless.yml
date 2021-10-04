@@ -53,4 +53,4 @@ functions:
     name: '${self:custom.vars.RESOURCE_NAMESPACE}-webhooks'
     handler: webhooks/index.handler
     environment:
-      STRIPE_SIGNING_SECRET: <>
+      STRIPE_SIGNING_SECRET: '${self:custom.vars.STRIPE_SIGNING_SECRET}'
