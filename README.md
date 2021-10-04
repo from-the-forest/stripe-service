@@ -19,7 +19,7 @@ https://stripe.com/docs/api
 
 ## Diagram
 
-![Diagram](https://lucid.app/documents/view/2559a05c-b1e2-4cc9-89e6-e3a9a3dfb2f5)
+![Diagram](https://lucid.app/documents/embeddedchart/2559a05c-b1e2-4cc9-89e6-e3a9a3dfb2f5)
 
 ## Authorization
 
