@@ -4,7 +4,6 @@ const getContext = require('../context');
 module.exports = async (event) => {
   const { stripe } = getContext();
 
-  // TODO: event handlers
-
   // TODO: onUserCreated (create stripe customer)
+  // TODO: onUserDeleted (soft delete)
 };
