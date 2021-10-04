@@ -224,12 +224,12 @@ type Mutation {
 # ###################################################################
 
 # This is a "stub" of the User entity so this service has a complete graph
-extend type User @key(fields: "id") {
-    id: ID! @external
-    charges(input: ChargesInput): ChargesConnection!
-    subscriptions(input: SubscriptionsInput): SubscriptionsConnection!
-    paymentMethods(input: PaymentMethodsInput): PaymentMethodsConnection!
-}
+# extend type User @key(fields: "id") {
+#     id: ID! @external
+#     charges(input: ChargesInput): ChargesConnection!
+#     subscriptions(input: SubscriptionsInput): SubscriptionsConnection!
+#     paymentMethods(input: PaymentMethodsInput): PaymentMethodsConnection!
+# }
 
 # extend interface Node {
 #     id: ID! @external

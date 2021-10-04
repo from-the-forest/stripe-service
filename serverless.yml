@@ -1,0 +1,65 @@
+service: '${self:custom.vars.SERVICE_NAME}'
+
+app: ftf
+
+plugins:
+  - serverless-prune-plugin
+
+custom:
+  vars:
+    # general
+    SERVICE_NAME: stripe-service 
+    RESOURCE_NAMESPACE: '${self:app}-${opt:stage}-${self:service}'
+    SSM_NAMESPACE: '/${self:app}/${opt:stage}/${self:service}'
+
+    # lambda
+    FUNCTION_NAME: '${self:custom.vars.RESOURCE_NAMESPACE}'
+
+    # api gateway
+    STAGE: v1
+    REST_API_ID: '${ssm:/${self:app}/${opt:stage}/api/gateway/id}'
+    PUBLIC_RESOURCE_ID: '${ssm:/${self:app}/${opt:stage}/api/public/resource/id}'
+
+    # node
+    NODE_ENV: '${ssm:/${self:app}/${opt:stage}/infra/node-env}'
+    NODE_VERSION: 'nodejs14.x'
+
+    # stripe
+    STRIPE_SECRET_KEY: '${ssm:/${self:app}/${opt:stage}/stripe/secret-key}'
+
+  prune:
+    automatic: true
+    number: 3
+
+provider:
+  name: aws
+
+  runtime: '${self:custom.vars.NODE_VERSION}'
+  timeout: 6
+  stackName: '${self:custom.vars.RESOURCE_NAMESPACE}'
+
+  # apiGateway:
+  #   restApiId: '${self:custom.vars.REST_API_ID}'
+  #   restApiRootResourceId:
+  #     Ref: GraphQLResource
+
+  environment:
+    NODE_ENV: '${self:custom.vars.NODE_ENV}' 
+    
+    STRIPE_SECRET_KEY: '${self:custom.vars.STRIPE_SECRET_KEY}'
+    
+functions:
+
+  graphql:
+    name: '${self:custom.vars.FUNCTION_NAME}'
+    handler: lambda.handler
+
+  # webhooks:
+  #   name: '${self:custom.vars.FUNCTION_NAME}'
+  #   handler:
+  #   environment:
+  #     STRIPE_SIGNING_SECRET: <>
+
+  # onUserCreated:
+  #   name: '${self:custom.vars.FUNCTION_NAME}'
+  #   handler: 
