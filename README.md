@@ -1,8 +1,8 @@
 # Stripe Service
 
-> Apollo Federation Subgraph for stripe operations
-
 [![CircleCI](https://circleci.com/gh/from-the-forest/stripe-service/tree/main.svg?style=svg)](https://circleci.com/gh/from-the-forest/stripe-service/tree/main)
+
+> Apollo Federation Subgraph for stripe operations
 
 ## Requirements
 
