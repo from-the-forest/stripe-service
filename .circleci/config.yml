@@ -32,10 +32,12 @@ jobs:
     steps:
       - checkout
       - node/install-packages
-      - run: |
-        APOLLO_GRAPH_ID=ftf-main-private \
-        APOLLO_GRAPH_VARIANT=ftf-main-private \
-        npx rover subgraph publish $APOLLO_GRAPH_ID@$APOLLO_GRAPH_VERSION
+      - run:
+          name: Publish Subgraph Schema
+          command: |
+            APOLLO_GRAPH_ID=ftf-main-private \
+              APOLLO_GRAPH_VARIANT=ftf-main-private \
+              npx rover subgraph publish $APOLLO_GRAPH_ID@$APOLLO_GRAPH_VERSION
 
   deploy: 
     executor: node/default
