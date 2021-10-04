@@ -13,8 +13,8 @@
     "docker:build": "docker build -t ftf/stripe-service .",
     "docker:run": "docker run -p 4000:4000 ftf/stripe-service",
     "serve": "node index.js",
-    "apollo:publish:private": "APOLLO_KEY=service:From-The-Forest:NKNX1rEFT5vmk45EL8LFdQ rover graph publish From-The-Forest@current --schema ./private-schema.gql",
-    "apollo:publish:public": "APOLLO_KEY=service:From-The-Forest:NKNX1rEFT5vmk45EL8LFdQ rover graph publish From-The-Forest@current --schema ./public-schema.gql"
+    "apollo:publish:private": "",
+    "apollo:publish:public": ""
   },
   "repository": {
     "type": "git",
