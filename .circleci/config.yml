@@ -40,7 +40,7 @@ jobs:
             APOLLO_KEY=$(aws ssm get-parameter --name /ftf/${CIRCLE_BRANCH}/apollo/key | jq -r '.Parameter.Value') \
             APOLLO_GRAPH_ID=ftf-main-private \
             APOLLO_GRAPH_VARIANT=current \
-            npx rover subgraph publish "$APOLLO_GRAPH_ID@$APOLLO_GRAPH_VARIANT" \
+            npx rover subgraph publish ftf-main-private@current \
               --name stripe \
               --schema ./private-schema.gql
 
