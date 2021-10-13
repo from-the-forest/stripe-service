@@ -39,8 +39,8 @@ provider:
 
   apiGateway:
     restApiId: '${self:custom.vars.REST_API_ID}'
-    restApiRootResourceId: '${self:custom.vars.ROOT_RESOURCE_ID}'
-#       Ref: StripeWebhooksResource
+    restApiRootResourceId:
+      Ref: StripeWebhooksResource
 
   environment:
     NODE_ENV: '${self:custom.vars.NODE_ENV}' 
@@ -55,24 +55,24 @@ functions:
       SECURITY: private
     events:
     - http:
-        path: graphql/stripe
+        path: graphql
         method: post
     - http:
-        path: graphql/stripe
+        path: grahpql
         method: get
 
-  public:
-    name: '${self:custom.vars.RESOURCE_NAMESPACE}-public-subgraph'
-    handler: lambda.handler
-    enviornment:
-      SECURITY: public
-    events:
-    - http:
-        path: public/graphql/stripe
-        method: post
-    - http:
-        path: public/graphql/stripe
-        method: get
+#   public:
+#     name: '${self:custom.vars.RESOURCE_NAMESPACE}-public-subgraph'
+#     handler: lambda.handler
+#     enviornment:
+#       SECURITY: public
+#     events:
+#     - http:
+#         path: graphql
+#         method: post
+#     - http:
+#         path: graphql
+#         method: get
 
   webhooks:
     name: '${self:custom.vars.RESOURCE_NAMESPACE}-webhooks'
