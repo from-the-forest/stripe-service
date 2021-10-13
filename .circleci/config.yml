@@ -42,8 +42,7 @@ jobs:
             APOLLO_GRAPH_VARIANT=current \
             npx rover subgraph publish ftf-main-private@current \
               --name stripe \
-              --schema ./private-schema.gql \
-              --routing-url https://api.test.fromtheforest.io/v1/public/stripe/graphql
+              --schema ./private-schema.gql
 
   deploy: 
     executor: node/default
