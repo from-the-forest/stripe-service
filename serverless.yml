@@ -52,12 +52,34 @@ functions:
     handler: lambda.handler
     enviornment:
       SECURITY: private
-
+    events:
+    - http:
+        path: graphql/stripe
+        method: post
+        # cors: true
+        # authorizer: 
+    - http:
+        path: graphql/stripe
+        method: get
+        # cors: true
+        # authorizer: 
+        
   public:
     name: '${self:custom.vars.RESOURCE_NAMESPACE}-public-subgraph'
     handler: lambda.handler
     enviornment:
       SECURITY: public
+    events:
+    - http:
+        path: public/graphql/stripe
+        method: post
+        # cors: true
+        # authorizer: 
+    - http:
+        path: public/graphql/stripe
+        method: get
+        # cors: true
+        # authorizer:
 
   webhooks:
     name: '${self:custom.vars.RESOURCE_NAMESPACE}-webhooks'
