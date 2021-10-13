@@ -57,9 +57,11 @@ functions:
     - http:
         path: graphql
         method: post
+        cors: true
     - http:
         path: grahpql
         method: get
+        cors: true
 
 #   public:
 #     name: '${self:custom.vars.RESOURCE_NAMESPACE}-public-subgraph'
